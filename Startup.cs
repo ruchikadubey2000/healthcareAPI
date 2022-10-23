@@ -30,8 +30,9 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Adding Jwt Authentication And Authorization Service Using JWT Bearer.
             services.AddAuthentication(options =>
-            {
+            { 
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(opt =>
@@ -42,19 +43,20 @@ namespace WebApplication1
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "https://localhost:44305/", //a valid issuer/api
-                    ValidAudience = "", //  a valid audience / angular side
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Ruchika!@#ABCHealthcare")) // security key
+                    ValidIssuer = Configuration["Jwt:Issuer"], 
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])) 
                 };
             });
             services.AddControllers();
+            //Adding Swagger Service.
             services.AddSwaggerGen(options=>
             {
                 options.SwaggerDoc("v1",
                     new Microsoft.OpenApi.Models.OpenApiInfo
                     {
                         Title = "HealthCare API",
-                        Description = "API that performsall actions for the e-healthcare application",
+                        Description = "API Methods That Performs Actions For The E-healthcare Application",
                         Version = "v1"
                     });
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
