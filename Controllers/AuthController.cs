@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
                 return Ok(new { Token = token });
             }
 
-            return NotFound("Incorrect Username Or Password,Please Try Again.");
+            return NotFound("Incorrect Username Or Password, Please Try Again.");
         }
 
         private string Generate(UserModel user)
@@ -77,8 +77,8 @@ namespace WebApplication1.Controllers
             //}
 
             // return null;
-            if(userLogin.UserName == "rudubey"&& userLogin.Password=="123lola123")
-                    {
+            if (userLogin.UserName == "rudubey" && userLogin.Password == "123lola123")
+            {
                 return new UserModel
                 {
                     UserName = "rudubey",
