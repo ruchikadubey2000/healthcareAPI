@@ -19,14 +19,17 @@ namespace WebApplication1.Controllers
     public class AuthController : ControllerBase
     {
         private IConfiguration _config;
+        private readonly HealthcareContext _context;
 
-        public AuthController(IConfiguration config)
+
+        public AuthController(IConfiguration config,HealthcareContext context)
         {
             _config = config;
+            _context = context;
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("LogIn")]
         public IActionResult Login([FromBody] LoginModel userLogin)
         {
             if (userLogin == null)
@@ -69,31 +72,15 @@ namespace WebApplication1.Controllers
 
         private UserModel Authenticate(LoginModel userLogin)
         {
-            //var currentUser = UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() == userLogin.Username.ToLower() && o.Password == userLogin.Password);
+            var currentuser = _context.User.Where(o => o.UserName.Trim().ToLower() == userLogin.UserName.Trim().ToLower() && o.Password.Trim() == userLogin.Password.Trim());
 
-            //if (currentUser != null)
-            //{
-            //    return currentUser;
-            //}
-
-            // return null;
-            if (userLogin.UserName == "rudubey" && userLogin.Password == "123lola123")
+            if (currentuser != null)
             {
-                return new UserModel
-                {
-                    UserName = "rudubey",
-                    DateOfBirth = DateTime.ParseExact("2000-02-03 00:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
-                                            System.Globalization.CultureInfo.InvariantCulture),
-                    Gender = "Female",
-                    Password = "123lola123",
-                    FullName = "Ruchika Dubey",
-                    Role = "Admin",
-                    Email = "ruchikadubey2000@gmail.com"
-
-
-                };
+                return currentuser.FirstOrDefault();
             }
+
             return null;
+           
         }
     }
 }
