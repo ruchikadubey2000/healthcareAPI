@@ -26,7 +26,5 @@ namespace WebApplication1.Models
         public int CategoryId { get; set; }
         public virtual CategoryModel Category { get; set; }
 
-
-
     }
 }

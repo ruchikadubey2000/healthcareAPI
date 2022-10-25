@@ -15,21 +15,17 @@ namespace WebApplication1.Models
         public double TotalPrice { get; set; }
         [Required]
         public DateTime OrderedDate { get; set; }
-
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
-
         public virtual UserModel User { get; set; }
         [Required]
         [ForeignKey("Address")]
         public int AddressID { get; set; }
-
         public virtual AddressModel Address { get; set; }
         [Required]
         [ForeignKey("Status")]
         public int StatusId { get; set; }
-
         public virtual StatusModel Status { get; set; }
 
 

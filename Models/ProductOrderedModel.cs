@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class ProductOrdered
+    public class ProductOrderedModel
     {
         [Key]
         public int Id { get; set; }
@@ -15,7 +15,6 @@ namespace WebApplication1.Models
         [ForeignKey("Order")]
         public int OrderId { get; set; }
         public virtual OrderModel Order { get; set; }
-
         [Required]
         [ForeignKey("Product")]
         public int ProductId { get; set; }

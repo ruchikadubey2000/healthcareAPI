@@ -14,24 +14,18 @@ namespace WebApplication1.Models
         [Required]
         public string Name { get; set; }
         [Required]
-
         public string Address { get; set; }
         [Required]
         public string City { get; set; }
-
         [Required]
         public string State { get; set; }
-
         [Required]
         public string PinCode { get; set; }
-
         [Required]
         public string PhoneNo { get; set; }
-
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
-
         public virtual UserModel User { get; set; }
 
 

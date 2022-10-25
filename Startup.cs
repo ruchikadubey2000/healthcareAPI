@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApplication1.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1
 {
@@ -63,6 +65,8 @@ namespace WebApplication1
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
             });
+            services.AddDbContext<HealthcareContext>(options =>
+         options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
